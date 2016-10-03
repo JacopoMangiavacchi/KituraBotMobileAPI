@@ -26,12 +26,11 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     public let securityToken: String
     public let webHookPath: String
     
+
     /// Initialize a `KituraBotMobileAPI` instance.
     ///
-    /// - Parameter appSecret: App Secret can be retrieved from the App Dashboard.
-    /// - Parameter validationToken: Arbitrary value used to validate a webhook.
-    /// - Parameter pageAccessToken: Generate a page access token for your page from the App Dashboard.
-    /// - Parameter webHookPath: URI for the webhook.
+    /// - Parameter securityToken: Arbitrary value used to validate a call.
+    /// - Parameter webHookPath: URI for the Mobile API.
     public init(securityToken: String, webHookPath: String) {
         self.securityToken = securityToken
         self.webHookPath = webHookPath
