@@ -6,7 +6,6 @@ Swift Kitura Facebook Messenger Webhook implemented according to the KituraBot m
 Please view KituraBot first at  https://github.com/JacopoMangiavacchi/KituraBot
 
 
-Please see Facebook documentation for configuration at https://developers.facebook.com/docs/messenger-platform/implementation#subscribe_app_pages
 
 
 ## API
