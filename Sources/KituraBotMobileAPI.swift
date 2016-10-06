@@ -55,6 +55,11 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     //
     /// - Parameter recipientId: is the ios device push Token to send the Push Notification.
     public func sendTextMessage(recipientId: String, messageText: String, context: [String: Any]?) {
+        Log.debug("SEND PUSH")
+        print("SEND PUSH")
+
+
+        
         let payload = APNSPayload(withText: messageText, ttl: 0, topic: topic, priority: .high)
         
         push.send(payload: payload, to: recipientId)
