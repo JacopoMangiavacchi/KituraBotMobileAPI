@@ -97,7 +97,9 @@ public class KituraBotMobileAPI : KituraBotProtocol {
                     var jsonResponse = JSON([:])
                     jsonResponse["responseMessage"].stringValue = responseMessage
 
-                    jsonResponse["context"].dictionaryObject = responseContext
+                    if let realContext = responseContext {
+                        jsonResponse["context"].dictionaryObject = realContext
+                    }
                     
                     try response.status(.OK).send(json: jsonResponse).end()
                 }
