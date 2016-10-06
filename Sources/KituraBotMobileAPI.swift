@@ -12,6 +12,7 @@ import Kitura
 import KituraRequest
 import LoggerAPI
 import KituraBot
+import ToriAPNS
 
 
 // MARK KituraBotMobileAPI
@@ -21,19 +22,24 @@ import KituraBot
 /// for more information.
 public class KituraBotMobileAPI : KituraBotProtocol {
     public var channelName: String?
-    public var botProtocolMessageNotificationHandler: BotInternalMessageNotificationHandler?
 
-    public let securityToken: String
-    public let webHookPath: String
+    private var botProtocolMessageNotificationHandler: BotInternalMessageNotificationHandler?
+    private let securityToken: String
+    private let webHookPath: String
+    public let push: APNS
     
-
+    
+    
     /// Initialize a `KituraBotMobileAPI` instance.
     ///
     /// - Parameter securityToken: Arbitrary value used to validate a call.
     /// - Parameter webHookPath: URI for the Mobile API.
-    public init(securityToken: String, webHookPath: String) {
+    public init(securityToken: String, webHookPath: String, filePathCrt: String, filePathKey: String) {
         self.securityToken = securityToken
         self.webHookPath = webHookPath
+
+        let cert = APNSCertificate(certPath: filePathCrt, keyPath: filePathKey)
+        self.push = APNS(withCerts: cert)
     }
     
     public func configure(router: Router, channelName: String, botProtocolMessageNotificationHandler: @escaping BotInternalMessageNotificationHandler) {
@@ -44,11 +50,12 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     }
     
     //Send a text message using the internal Send API.
+    //
+    /// - Parameter recipientId: is the ios device push Token to send the Push Notification.
     public func sendTextMessage(recipientId: String, messageText: String, context: [String: Any]?) {
+        let payload = APNSPayload(withText: messageText)
 
-        Log.debug("PUSH not yet implemented!!!")
-        print("PUSH not yet implemented!!!")
-    
+        push.send(payload: payload, to: recipientId)
     }
     
     
