@@ -1,4 +1,4 @@
-# KituraBotMobileAPI
+# KituraBotMobileAPIWithCurlPush
 Swift Kitura Facebook Messenger Webhook implemented according to the KituraBot multi-channel framework.
 
 **Warning: This is work in progress**
