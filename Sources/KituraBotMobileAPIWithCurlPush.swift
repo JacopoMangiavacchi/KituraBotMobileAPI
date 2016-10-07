@@ -1,6 +1,6 @@
 //
-//  KituraBotMobileAPI.swift
-//  KituraBotMobileAPI
+//  KituraBotMobileAPIWithCurlPush.swift
+//  KituraBotMobileAPIWithCurlPush
 //
 //  Created by Jacopo Mangiavacchi on 10/3/16.
 //
@@ -9,18 +9,17 @@
 import Foundation
 import SwiftyJSON
 import Kitura
-import KituraRequest
 import LoggerAPI
 import KituraBot
 import ToriAPNS
 
 
-// MARK KituraBotMobileAPI
+// MARK KituraBotMobileAPIWithCurlPush
 
 /// Implement Facebook Messenger Bot Webhook.
 /// See [Facebook's documentation](https://developers.facebook.com/docs/messenger-platform/implementation#subscribe_app_pages)
 /// for more information.
-public class KituraBotMobileAPI : KituraBotProtocol {
+public class KituraBotMobileAPIWithCurlPush : KituraBotProtocol {
     public var channelName: String?
 
     private var botProtocolMessageNotificationHandler: BotInternalMessageNotificationHandler?
@@ -31,7 +30,7 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     
     
     
-    /// Initialize a `KituraBotMobileAPI` instance.
+    /// Initialize a `KituraBotMobileAPIWithCurlPush` instance.
     ///
     /// - Parameter securityToken: Arbitrary value used to validate a call.
     /// - Parameter webHookPath: URI for the Mobile API.
@@ -55,11 +54,6 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     //
     /// - Parameter recipientId: is the ios device push Token to send the Push Notification.
     public func sendTextMessage(recipientId: String, messageText: String, context: [String: Any]?) {
-        Log.debug("SEND PUSH")
-        print("SEND PUSH")
-
-
-        
         let payload = APNSPayload(withText: messageText, ttl: 0, topic: topic, priority: .high)
         
         push.send(payload: payload, to: recipientId)
@@ -85,8 +79,8 @@ public class KituraBotMobileAPI : KituraBotProtocol {
     ///     "context" : {}
     /// }
     private func processRequestHandler(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) throws {
-        Log.debug("POST - process Bot request message from KituraBotMobileAPI")
-        print("POST - process Bot request message from KituraBotMobileAPI")
+        Log.debug("POST - process Bot request message from KituraBotMobileAPIWithCurlPush")
+        print("POST - process Bot request message from KituraBotMobileAPIWithCurlPush")
         
         var data = Data()
         if try request.read(into: &data) > 0 {
